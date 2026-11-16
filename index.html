@@ -3,36 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AssurPilot - Côte d'Ivoire</title>
+<title>AssurPilot PRO - Côte d'Ivoire</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="header">
-    <h1>🛡️ Assur<span>Pilot</span></h1>
-    <p>Abidjan, CI - Pour Courtiers</p>
-  </div>
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">🛡️ Assur<span>Pilot</span> <em>PRO</em></div>
+    <div class="profile">
+      <div class="avatar">KS</div>
+      <div><b>Konan Stéphane</b><small>Courtier Agréé • Abidjan</small><span class="online">● En ligne</span></div>
+    </div>
+    <nav>
+      <a class="active">📊 Tableau de bord</a>
+      <a>👥 Portefeuille <span>2</span></a>
+      <a>💸 Encaissements</a>
+      <a>📄 Polices</a>
+      <a>⚙️ Paramètres</a>
+    </nav>
+    <div class="sidebar-card">
+      <b>💎 Objectif du mois</b>
+      <p>145 000 FCFA / 500 000 FCFA</p>
+      <div class="progress"><div style="width:29%"></div></div>
+      <small>29% atteint - Courage !</small>
+    </div>
+    <p class="version">AssurPilot v4.0 • Made in CI 🇨🇮</p>
+  </aside>
 
-  <div class="stats">
-    <div class="card">👥 Clients <b id="totalClients">0</b></div>
-    <div class="card">💰 Commissions <b id="totalCom">0 FCFA</b></div>
-    <div class="card">⚠️ Expire bientôt <b id="totalExp">0</b></div>
-  </div>
+  <!-- MAIN -->
+  <main>
+    <header class="topbar">
+      <div>
+        <h1>Bonjour, Stéphane 👋</h1>
+        <p>Lundi 16 Nov 2026 • 1 client en retard, 1 à relancer aujourd'hui</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn-ghost">🔔 1</button>
+        <button class="btn-dark" onclick="toggleForm()">+ Nouveau Client</button>
+      </div>
+    </header>
 
-   <input id="search" placeholder="🔍 Rechercher un client..." oninput="render()" style="margin-bottom:10px">
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat"><small>👥 TOTAL CLIENTS</small><b id="totalClients">2</b><span class="up">+2 ce mois</span></div>
+      <div class="stat"><small>💰 PRIMES À ENCAISSER</small><b id="totalMontant">145 000 FCFA</b><span>dont 85 000 urgent</span></div>
+      <div class="stat alert"><small>⚠️ EXPIRE BIENTÔT</small><b id="totalRetard">1</b><span class="down">Action requise</span></div>
+      <div class="stat success"><small>✅ TAUX DE PAIEMENT</small><b>68%</b><span class="up">+12% vs mois dernier</span></div>
+    </div>
 
-  <div id="clientList"></div>
-  <div class="card form">
-    <h3>➕ Nouveau client</h3>
-    <input id="nom" placeholder="Nom complet ex: Kouadio Nguessan">
-    <input id="tel" placeholder="WhatsApp ex: 0700000000">
-    <input id="montant" type="number" placeholder="Montant FCFA ex: 85000">
-    <input id="dateExp" type="date">
-    <select id="assureur">
-      <option>NSIA</option><option>SUNU</option><option>AXA</option><option>Allianz</option><option>Autre</option>
-    </select>
-    <button onclick="ajouter()">Ajouter Client</button>
-  </div>
+    <!-- SEARCH + FILTERS -->
+    <div class="toolbar">
+      <input id="search" placeholder="🔍 Rechercher un client, NSIA, SUNU, N° tel...">
+      <div class="filters">
+        <button class="chip active">Tous</button>
+        <button class="chip red">En retard (1)</button>
+        <button class="chip">À venir</button>
+        <button class="chip green">Payés</button>
+      </div>
+    </div>
 
+    <!-- FORM -->
+    <div id="form" class="card form-card" style="display:none">
+      <h3>➕ Nouveau client</h3>
+      <div class="form-grid">
+        <input id="nom" placeholder="Nom complet ex: Kouadio Yao">
+        <input id="tel" placeholder="WhatsApp ex: 0707070707">
+        <select id="compagnie"><option>NSIA</option><option>SUNU</option><option>Allianz</option><option>Atlantique</option><option>Autre</option></select>
+        <input id="montant" type="number" placeholder="Prime FCFA ex: 85000">
+        <input id="date" type="date" value="2026-11-28">
+      </div>
+      <button class="btn-orange" onclick="addClient()">Ajouter et enregistrer →</button>
+    </div>
+
+    <!-- LIST -->
+    <div class="card list-card">
+      <div class="list-head">
+        <h3>Portefeuille Clients <span id="countList">2 clients</span></h3>
+        <button class="btn-relance" onclick="relancerTous()">📤 Relancer les 1 en retard</button>
+      </div>
+      <div id="clientList"></div>
+    </div>
+
+    <p class="footer">AssurPilot - Conçu pour les courtiers ivoiriens • Données stockées localement • Payer via Wave & Orange Money</p>
+  </main>
+</div>
 <script src="app.js"></script>
 </body>
 </html>
