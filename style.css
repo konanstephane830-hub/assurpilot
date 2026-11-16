@@ -1,0 +1,79 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif}
+
+body{
+  background:#f1f5f9;
+  padding:15px;
+  max-width:600px;
+  margin:auto;
+}
+
+.header{
+  background:#0a2456;
+  color:white;
+  padding:20px;
+  border-radius:14px;
+}
+
+.header span{color:#ff7a00}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin:15px 0;
+}
+
+.card{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+  margin-bottom:10px;
+}
+
+.card b{font-size:20px;display:block;margin-top:4px}
+
+.client{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.btn{
+  padding:8px 10px;
+  border:none;
+  border-radius:8px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:13px;
+  margin-top:4px;
+  width:100%;
+}
+
+.wave{background:#1a6bff}
+.orange{background:#ff7900}
+.whatsapp{background:#22c55e}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+
+.form button{
+  width:100%;
+  background:#0a2456;
+  color:white;
+  padding:13px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AssurPilot - Côte d'Ivoire</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>🛡️ Assur<span>Pilot</span></h1>
+    <p>Abidjan, CI - Pour Courtiers</p>
+  </div>
+
+  <div class="stats">
+    <div class="card">👥 Clients <b id="totalClients">0</b></div>
+    <div class="card">💰 Commissions <b id="totalCom">0 FCFA</b></div>
+    <div class="card">⚠️ Expire bientôt <b id="totalExp">0</b></div>
+  </div>
+
+   <input id="search" placeholder="🔍 Rechercher un client..." oninput="render()" style="margin-bottom:10px">
+
+  <div id="clientList"></div>
+  <div class="card form">
+    <h3>➕ Nouveau client</h3>
+    <input id="nom" placeholder="Nom complet ex: Kouadio Nguessan">
+    <input id="tel" placeholder="WhatsApp ex: 0700000000">
+    <input id="montant" type="number" placeholder="Montant FCFA ex: 85000">
+    <input id="dateExp" type="date">
+    <select id="assureur">
+      <option>NSIA</option><option>SUNU</option><option>AXA</option><option>Allianz</option><option>Autre</option>
+    </select>
+    <button onclick="ajouter()">Ajouter Client</button>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
