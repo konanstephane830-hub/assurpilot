@@ -17,12 +17,12 @@
       <div><b>Konan Stéphane</b><small>Courtier Agréé • Abidjan</small><span class="online">● En ligne</span></div>
     </div>
     <nav>
-      <a class="active">📊 Tableau de bord</a>
-      <a>👥 Portefeuille <span>2</span></a>
-      <a>💸 Encaissements</a>
-      <a>📄 Polices</a>
-      <a>⚙️ Paramètres</a>
-    </nav>
+  <a class="active" onclick="showSection('dash', this)">📊 Tableau de bord</a>
+  <a onclick="showSection('portefeuille', this)">👥 Portefeuille <span>2</span></a>
+  <a onclick="showSection('encaissement', this)">💸 Encaissements</a>
+  <a onclick="showSection('polices', this)">📄 Polices</a>
+  <a onclick="openSettings()">⚙️ Paramètres</a>
+</nav>
     <div class="sidebar-card">
       <b>💎 Objectif du mois</b>
       <p>145 000 FCFA / 500 000 FCFA</p>
@@ -31,6 +31,26 @@
     </div>
     <p class="version">AssurPilot v4.0 • Made in CI 🇨🇮</p>
   </aside>
+  <!-- MODAL PARAMETRES -->
+<div id="settingsModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:100; align-items:center; justify-content:center">
+  <div style="background:#fff; width:92%; max-width:420px; border-radius:16px; padding:22px; color:#0f172a">
+    <div style="display:flex; justify-content:space-between; align-items:center">
+      <h3>⚙️ Paramètres</h3>
+      <button onclick="closeSettings()" style="border:0; background:#f1f5f9; padding:8px 12px; border-radius:8px; cursor:pointer">X</button>
+    </div>
+    <p style="color:#64748b; font-size:13px; margin:6px 0 14px">Modifie tes infos, elles seront sauvegardées.</p>
+    <label style="font-size:13px; font-weight:700">Ton nom</label>
+    <input id="setNom" value="Konan Stéphane" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
+    <label style="font-size:13px; font-weight:700">Numéro Wave / OM / WhatsApp</label>
+    <input id="setTel" value="0788452508" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
+    <label style="font-size:13px; font-weight:700">Objectif du mois (FCFA)</label>
+    <input id="setObjectif" value="500000" type="number" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
+    <label style="font-size:13px; font-weight:700">Compagnie principale</label>
+    <select id="setCie" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 14px"><option>NSIA</option><option>SUNU</option><option>Allianz</option><option>Atlantique</option></select>
+    <button onclick="saveSettings()" style="width:100%; background:#FF4D2E; color:#fff; border:0; padding:13px; border-radius:11px; font-weight:700; cursor:pointer">Enregistrer ✅</button>
+    <button onclick="resetData()" style="width:100%; background:#fff; color:#dc2626; border:1px solid #fecaca; padding:11px; border-radius:11px; font-weight:700; cursor:pointer; margin-top:8px">Effacer tous les clients</button>
+  </div>
+</div>
 
   <!-- MAIN -->
   <main>

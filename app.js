@@ -66,3 +66,55 @@ function payOM(i){
 function relancerTous(){let r=clients.findIndex(c=>c.status==='retard'); if(r>=0) relance(r); else alert('Aucun retard !')}
 document.getElementById('search').addEventListener('input', render);
 render();
+// --- NAVIGATION ---
+function showSection(type, el){
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(type==='portefeuille'){
+    document.getElementById('search').focus();
+    document.getElementById('search').scrollIntoView({behavior:'smooth'});
+    alert('Portefeuille: '+clients.length+' clients. Utilise la recherche pour filtrer.');
+  }
+  if(type==='encaissement'){
+    let total = clients.reduce((s,c)=>s+c.montant,0);
+    alert('💸 Encaissements:\nTotal à encaisser: '+total.toLocaleString()+' FCFA\n\nWave / OM: '+MON_NUMERO+'\n\nClique "Payer via Wave" sur un client pour encaisser.');
+    document.getElementById('clientList').scrollIntoView({behavior:'smooth'});
+  }
+  if(type==='polices'){
+    alert('📄 Polices:\n'+clients.map(c=>`- ${c.nom} | ${c.cie} | ${c.montant.toLocaleString()} FCFA | ${c.date}`).join('\n'));
+  }
+}
+
+// --- PARAMETRES ---
+function openSettings(){
+  document.getElementById('settingsModal').style.display='flex';
+  let saved = JSON.parse(localStorage.getItem('assur_settings')||'{}');
+  if(saved.tel) document.getElementById('setTel').value=saved.tel;
+  if(saved.nom) document.getElementById('setNom').value=saved.nom;
+}
+function closeSettings(){ document.getElementById('settingsModal').style.display='none'; }
+function saveSettings(){
+  let nom=document.getElementById('setNom').value;
+  let tel=document.getElementById('setTel').value;
+  let obj=document.getElementById('setObjectif').value;
+  localStorage.setItem('assur_settings', JSON.stringify({nom,tel,obj}));
+  // Met à jour partout
+  MON_NUMERO = tel;
+  // Change le nom affiché
+  document.querySelector('.profile b').innerText=nom;
+  document.querySelector('.topbar h1').innerText='Bonjour, '+nom.split(' ')[0]+' 👋';
+  alert('✅ Enregistré ! Ton nouveau numéro '+tel+' est maintenant utilisé pour Wave et WhatsApp.');
+  closeSettings(); render();
+}
+function resetData(){
+  if(confirm('Effacer tous les clients ?')){
+    localStorage.removeItem('assur_v4');
+    clients=[]; save(); closeSettings();
+  }
+}
+// Charger les paramètres au démarrage
+(function(){
+  let s=JSON.parse(localStorage.getItem('assur_settings')||'{}');
+  if(s.nom){ document.querySelector('.profile b').innerText=s.nom; }
+  if(s.tel){ MON_NUMERO=s.tel; }
+})();
