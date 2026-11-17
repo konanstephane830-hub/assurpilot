@@ -1,114 +1,114 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AssurPilot PRO - Côte d'Ivoire</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{display:flex;background:#f1f5f9}
+.sidebar{width:260px;background:#0B1A2E;color:#fff;min-height:100vh;padding:20px;position:fixed}
+.sidebar h2{color:#fff}.sidebar h2 span{color:#FF4D2E}
+.profile{display:flex;gap:12px;align-items:center;margin:20px 0}
+.avatar{width:50px;height:50px;background:#FF4D2E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
+nav a{display:block;padding:13px;border-radius:10px;color:#cbd5e1;cursor:pointer;text-decoration:none;margin-bottom:6px}
+nav a.active,nav a:hover{background:#FF4D2E;color:#fff}
+.obj{background:linear-gradient(135deg,#FF4D2E,#ff7a5c);padding:16px;border-radius:14px;margin-top:20px}
+.bar{height:8px;background:rgba(255,255,255,.3);border-radius:99px;margin:10px 0}.bar i{display:block;height:100%;width:29%;background:#fff;border-radius:99px}
+main{margin-left:260px;flex:1;padding:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+.card{background:#fff;padding:16px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.card b{font-size:22px}
+.search{width:100%;padding:12px;border-radius:10px;border:1px solid #e2e8f0}
+.client-row{background:#fff;border-radius:14px;padding:14px;display:flex;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}
+.c-avatar{width:46px;height:46px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+button{padding:9px 12px;border-radius:9px;border:0;cursor:pointer;font-weight:700}
+.wa{background:#22c55e;color:#fff}.wave{background:#2563eb;color:#fff}.om{background:#ea580c;color:#fff}
+@media(max-width:800px){.sidebar{width:70px;padding:10px}.sidebar h2,.profile div,.obj,nav a span{display:none}.sidebar nav a{text-align:center}main{margin-left:70px}.stats{grid-template-columns:1fr 1fr}}
+</style></head>
 <body>
-<div class="layout">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="logo">🛡️ Assur<span>Pilot</span> <em>PRO</em></div>
-    <div class="profile">
-      <div class="avatar">KS</div>
-      <div><b>Konan Stéphane</b><small>Courtier Agréé • Abidjan</small><span class="online">● En ligne</span></div>
-    </div>
-    <nav>
-  <a class="active" onclick="showSection('dash', this)">📊 Tableau de bord</a>
-  <a onclick="showSection('portefeuille', this)">👥 Portefeuille <span>2</span></a>
-  <a onclick="showSection('encaissement', this)">💸 Encaissements</a>
-  <a onclick="showSection('polices', this)">📄 Polices</a>
-  <a onclick="openSettings()">⚙️ Paramètres</a>
+<aside class="sidebar">
+<h2>🛡️ Assur<span>Pilot</span> <span style="background:#FF4D2E;font-size:11px;padding:3px 7px;border-radius:99px">PRO</span></h2>
+<div class="profile"><div class="avatar">KS</div><div><b id="displayNom">Konan Stéphane</b><br><small>Courtier Agréé • Abidjan</small><br><small style="color:#4ade80">● En ligne</small></div></div>
+<nav>
+<a class="active" onclick="showSection('dash',this)">📊 <span>Tableau de bord</span></a>
+<a onclick="showSection('portefeuille',this)">👥 <span>Portefeuille</span> <span>2</span></a>
+<a onclick="showSection('encaissement',this)">💸 <span>Encaissements</span></a>
+<a onclick="showSection('polices',this)">📄 <span>Polices</span></a>
+<a onclick="openSettings()">⚙️ <span>Paramètres</span></a>
 </nav>
-    <div class="sidebar-card">
-      <b>💎 Objectif du mois</b>
-      <p>145 000 FCFA / 500 000 FCFA</p>
-      <div class="progress"><div style="width:29%"></div></div>
-      <small>29% atteint - Courage !</small>
-    </div>
-    <p class="version">AssurPilot v4.0 • Made in CI 🇨🇮</p>
-  </aside>
-  <!-- MODAL PARAMETRES -->
-<div id="settingsModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:100; align-items:center; justify-content:center">
-  <div style="background:#fff; width:92%; max-width:420px; border-radius:16px; padding:22px; color:#0f172a">
-    <div style="display:flex; justify-content:space-between; align-items:center">
-      <h3>⚙️ Paramètres</h3>
-      <button onclick="closeSettings()" style="border:0; background:#f1f5f9; padding:8px 12px; border-radius:8px; cursor:pointer">X</button>
-    </div>
-    <p style="color:#64748b; font-size:13px; margin:6px 0 14px">Modifie tes infos, elles seront sauvegardées.</p>
-    <label style="font-size:13px; font-weight:700">Ton nom</label>
-    <input id="setNom" value="Konan Stéphane" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
-    <label style="font-size:13px; font-weight:700">Numéro Wave / OM / WhatsApp</label>
-    <input id="setTel" value="0788452508" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
-    <label style="font-size:13px; font-weight:700">Objectif du mois (FCFA)</label>
-    <input id="setObjectif" value="500000" type="number" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 10px">
-    <label style="font-size:13px; font-weight:700">Compagnie principale</label>
-    <select id="setCie" style="width:100%; padding:11px; border:1px solid #e2e8f0; border-radius:10px; margin:6px 0 14px"><option>NSIA</option><option>SUNU</option><option>Allianz</option><option>Atlantique</option></select>
-    <button onclick="saveSettings()" style="width:100%; background:#FF4D2E; color:#fff; border:0; padding:13px; border-radius:11px; font-weight:700; cursor:pointer">Enregistrer ✅</button>
-    <button onclick="resetData()" style="width:100%; background:#fff; color:#dc2626; border:1px solid #fecaca; padding:11px; border-radius:11px; font-weight:700; cursor:pointer; margin-top:8px">Effacer tous les clients</button>
-  </div>
+<div class="obj"><b>💎 Objectif du mois</b><br><span id="objText">145 000 FCFA / 500 000 FCFA</span><div class="bar"><i></i></div><small>29% atteint - Courage !</small></div>
+<p style="text-align:center;font-size:11px;opacity:.6;margin-top:12px">AssurPilot v5.0 • Made in CI 🇨🇮</p>
+</aside>
+<main>
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<div><h1>Bonjour, Stéphane 👋</h1><p style="color:#64748b">Paiements Wave / OM au <b style="color:#FF4D2E" id="headerTel">0788452508</b> • <a href="https://wa.me/225788452508" style="color:#22c55e">Me contacter WhatsApp →</a></p></div>
+<button onclick="toggleForm()" style="background:#0B1A2E;color:#fff">+ Ajouter un client</button>
 </div>
-
-  <!-- MAIN -->
-  <main>
-    <header class="topbar">
-      <div>
-        <h1>Bonjour, Stéphane 👋</h1>
-        <p><p>Lundi 16 Nov 2026 • Paiements: Wave / OM au <b style="color:#FF4D2E">0788452508</b> - Konan Stéphane • <a href="https://wa.me/225788452508" style="color:#22c55e">Me contacter WhatsApp →</a></p>
-      </div>
-      <div class="top-actions">
-        <button class="btn-ghost">🔔 1</button>
-        <button class="btn-dark" onclick="toggleForm()">+ Nouveau Client</button>
-      </div>
-    </header>
-
-    <!-- STATS -->
-    <div class="stats">
-      <div class="stat"><small>👥 TOTAL CLIENTS</small><b id="totalClients">2</b><span class="up">+2 ce mois</span></div>
-      <div class="stat"><small>💰 PRIMES À ENCAISSER</small><b id="totalMontant">145 000 FCFA</b><span>dont 85 000 urgent</span></div>
-      <div class="stat alert"><small>⚠️ EXPIRE BIENTÔT</small><b id="totalRetard">1</b><span class="down">Action requise</span></div>
-      <div class="stat success"><small>✅ TAUX DE PAIEMENT</small><b>68%</b><span class="up">+12% vs mois dernier</span></div>
-    </div>
-
-    <!-- SEARCH + FILTERS -->
-    <div class="toolbar">
-      <input id="search" placeholder="🔍 Rechercher un client, NSIA, SUNU, N° tel...">
-      <div class="filters">
-        <button class="chip active">Tous</button>
-        <button class="chip red">En retard (1)</button>
-        <button class="chip">À venir</button>
-        <button class="chip green">Payés</button>
-      </div>
-    </div>
-
-    <!-- FORM -->
-    <div id="form" class="card form-card" style="display:none">
-      <h3>➕ Nouveau client</h3>
-      <div class="form-grid">
-        <input id="nom" placeholder="Nom complet ex: Kouadio Yao">
-        <input id="tel" placeholder="WhatsApp ex: 0707070707">
-        <select id="compagnie"><option>NSIA</option><option>SUNU</option><option>Allianz</option><option>Atlantique</option><option>Autre</option></select>
-        <input id="montant" type="number" placeholder="Prime FCFA ex: 85000">
-        <input id="date" type="date" value="2026-11-28">
-      </div>
-      <button class="btn-orange" onclick="addClient()">Ajouter et enregistrer →</button>
-    </div>
-
-    <!-- LIST -->
-    <div class="card list-card">
-      <div class="list-head">
-        <h3>Portefeuille Clients <span id="countList">2 clients</span></h3>
-        <button class="btn-relance" onclick="relancerTous()">📤 Relancer les 1 en retard</button>
-      </div>
-      <div id="clientList"></div>
-    </div>
-
-    <p class="footer">AssurPilot - Conçu pour les courtiers ivoiriens • Données stockées localement • Payer via Wave & Orange Money</p>
-  </main>
+<div class="stats">
+<div class="card"><small>CLIENTS</small><br><b id="totalClients">2</b><br><small>+2 ce mois</small></div>
+<div class="card"><small>À ENCAISSER</small><br><b id="totalMontant">145000 FCFA</b><br><small>dont 85000 urgent</small></div>
+<div class="card"><small>EN RETARD</small><br><b id="totalRetard">1</b><br><small>Action requise</small></div>
+<div class="card"><small>TAUX</small><br><b>68%</b><br><small>+12% vs mois dernier</small></div>
 </div>
-<script src="app.js"></script>
-</body>
-</html>
+<input id="search" class="search" placeholder="🔍 Rechercher un client, NSIA, SUNU, N° tel...">
+<div id="form" style="display:none;background:#fff;padding:16px;border-radius:14px;margin-top:12px">
+<input id="nom" placeholder="Nom complet" style="padding:11px;width:100%;margin-bottom:8px;border:1px solid #ddd;border-radius:8px">
+<input id="tel" placeholder="Téléphone 07..." style="padding:11px;width:100%;margin-bottom:8px;border:1px solid #ddd;border-radius:8px">
+<input id="montant" type="number" placeholder="Montant FCFA ex 85000" style="padding:11px;width:100%;margin-bottom:8px;border:1px solid #ddd;border-radius:8px">
+<input id="date" type="date" style="padding:11px;width:100%;margin-bottom:8px;border:1px solid #ddd;border-radius:8px">
+<select id="compagnie" style="padding:11px;width:100%;margin-bottom:8px;border:1px solid #ddd;border-radius:8px"><option>NSIA</option><option>SUNU</option><option>Allianz</option><option>Atlantique</option></select>
+<button onclick="addClient()" style="background:#FF4D2E;color:#fff;width:100%;padding:12px">Enregistrer client</button>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:16px"><h3>Portefeuille Clients <span id="countList">2 clients</span></h3><button onclick="relancerTous()" style="background:#fff;border:1px solid #ddd">Relancer les 1 en retard</button></div>
+<div id="clientList"></div>
+<div class="card" style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between;background:#0B1A2E;color:#fff">
+<div style="display:flex;gap:12px;align-items:center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Wave%20-%200788452508%20Konan%20Stephane" width="90" style="border-radius:10px;background:#fff;padding:4px"><div><b>🌊 Payer par Wave</b><br><b style="font-size:20px;color:#FFD166">0788452508</b><br><small>Konan Stéphane</small></div></div>
+<div style="display:flex;gap:12px;align-items:center"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/225788452508" width="90" style="border-radius:10px;background:#fff;padding:4px"><div><b>💬 WhatsApp</b><br><b style="font-size:20px;color:#4ade80">0788452508</b><br><a href="https://wa.me/225788452508" style="background:#22c55e;color:#fff;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:13px">Ouvrir WhatsApp →</a></div></div>
+</div>
+</main>
+<!-- MODAL PARAMETRES -->
+<div id="settingsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center">
+<div style="background:#fff;width:92%;max-width:420px;border-radius:16px;padding:22px">
+<div style="display:flex;justify-content:space-between"><h3>⚙️ Paramètres</h3><button onclick="closeSettings()" style="background:#f1f5f9">X</button></div>
+<p style="color:#64748b;font-size:13px;margin:8px 0">Ton numéro est utilisé pour Wave, OM et WhatsApp.</p>
+<label><b>Ton nom</b></label><input id="setNom" value="Konan Stéphane" style="width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;margin:6px 0">
+<label><b>Numéro Wave / OM</b></label><input id="setTel" value="0788452508" style="width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;margin:6px 0">
+<label><b>Objectif du mois</b></label><input id="setObjectif" value="500000" style="width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;margin:6px 0">
+<button onclick="saveSettings()" style="width:100%;background:#FF4D2E;color:#fff;padding:13px;margin-top:10px">Enregistrer ✅</button>
+<button onclick="resetData()" style="width:100%;background:#fff;color:#dc2626;border:1px solid #fecaca;padding:11px;margin-top:8px">Effacer tous les clients</button>
+</div></div>
+<script>
+let MON_NUMERO="0788452508";
+let clients=JSON.parse(localStorage.getItem('assur_v5'))||[
+{nom:"Kouadio Nguessan",tel:"0707070707",cie:"NSIA",montant:85000,date:"2026-11-28",status:"retard"},
+{nom:"Awa Traoré",tel:"0505050505",cie:"SUNU",montant:60000,date:"2026-12-02",status:"avenir"}];
+function save(){localStorage.setItem('assur_v5',JSON.stringify(clients));render();}
+function render(){
+let q=(document.getElementById('search').value||"").toLowerCase();
+let list=document.getElementById('clientList');list.innerHTML="";let total=0,ret=0;
+clients.filter(c=>(c.nom+c.cie).toLowerCase().includes(q)).forEach((c,i)=>{
+total+=c.montant;if(c.status==='retard')ret++;
+let badge=c.status==='retard'?'<span style="background:#fee2e2;color:#dc2626;padding:3px 8px;border-radius:99px;font-size:11px">● En retard • 12j</span>':'<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:99px;font-size:11px">● OK • 16j restants</span>';
+let col=c.status==='retard'?'#ef4444':'#0ea5e9';
+let ini=c.nom.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+list.innerHTML+=`<div class="client-row"><div style="display:flex;gap:10px;align-items:center"><div class="c-avatar" style="background:${col}">${ini}</div><div><b>${c.nom} ${badge}</b><br><small style="color:#64748b">${c.cie} • ${c.montant.toLocaleString()} FCFA • Expire: ${c.date} • ${c.tel}</small></div></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="wa" onclick="relance(${i})">Relancer WhatsApp</button><button class="wave" onclick="payWave(${i})">Payer via Wave - ${MON_NUMERO}</button><button class="om" onclick="payOM(${i})">Orange Money - ${MON_NUMERO}</button></div></div>`;
+});
+document.getElementById('totalClients').innerText=clients.length;
+document.getElementById('totalMontant').innerText=total.toLocaleString()+" FCFA";
+document.getElementById('totalRetard').innerText=ret;
+document.getElementById('countList').innerText=clients.length+" clients";
+}
+function toggleForm(){let f=document.getElementById('form');f.style.display=f.style.display==='none'?'block':'none'}
+function addClient(){let nom=document.getElementById('nom').value,tel=document.getElementById('tel').value,cie=document.getElementById('compagnie').value,montant=parseInt(document.getElementById('montant').value)||0,date=document.getElementById('date').value;if(!nom||!tel)return alert('Nom et tel obligatoires');clients.unshift({nom,tel,cie,montant,date,status:'avenir'});save();toggleForm();}
+function relance(i){let c=clients[i];window.open(`https://wa.me/225${c.tel.slice(-10)}?text=${encodeURIComponent("Bonjour "+c.nom+", c'est Stéphane. Votre "+c.cie+" de "+c.montant+" FCFA expire le "+c.date+". Payez par Wave au "+MON_NUMERO)}`);}
+function payWave(i){let c=clients[i];alert("Wave:\nEnvoie "+c.montant+" FCFA au "+MON_NUMERO+"\nNom: Konan Stéphane");window.open(`https://wa.me/225788452508?text=${encodeURIComponent("Bonjour, je paie "+c.montant+" pour "+c.nom)}`);}
+function payOM(i){let c=clients[i];alert("Orange Money:\n#144# puis envoie "+c.montant+" FCFA au "+MON_NUMERO);window.open(`https://wa.me/225788452508`);}
+function relancerTous(){let r=clients.findIndex(c=>c.status==='retard');if(r>=0)relance(r);else alert('Aucun retard');}
+function showSection(t,el){document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));if(el)el.classList.add('active');if(t==='portefeuille'){document.getElementById('search').focus()}if(t==='encaissement'){alert('Total à encaisser: '+clients.reduce((s,c)=>s+c.montant,0).toLocaleString()+' FCFA\nWave/OM: '+MON_NUMERO)}if(t==='polices'){alert(clients.map(c=>c.nom+" | "+c.cie+" | "+c.montant+" FCFA").join('\n'))}}
+function openSettings(){document.getElementById('settingsModal').style.display='flex'}
+function closeSettings(){document.getElementById('settingsModal').style.display='none'}
+function saveSettings(){let n=document.getElementById('setNom').value,t=document.getElementById('setTel').value,o=document.getElementById('setObjectif').value;MON_NUMERO=t;document.getElementById('displayNom').innerText=n;document.getElementById('headerTel').innerText=t;document.getElementById('objText').innerText="145 000 FCFA / "+parseInt(o).toLocaleString()+" FCFA";localStorage.setItem('assur_settings',JSON.stringify({nom:n,tel:t,obj:o}));alert('✅ Enregistré ! Nouveau numéro: '+t);closeSettings();render();}
+function resetData(){if(confirm('Effacer tous les clients ?')){localStorage.removeItem('assur_v5');clients=[];save();closeSettings();}}
+document.getElementById('search').addEventListener('input',render);
+let s=JSON.parse(localStorage.getItem('assur_settings')||'{}');if(s.tel){MON_NUMERO=s.tel;document.getElementById('headerTel').innerText=s.tel}if(s.nom){document.getElementById('displayNom').innerText=s.nom}
+render();
+</script>
+</body></html>
